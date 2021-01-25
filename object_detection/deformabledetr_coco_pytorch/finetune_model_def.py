@@ -245,15 +245,7 @@ class DeformableDETRTrial(PyTorchTrial):
         self.context.step_optimizer(self.optimizer, clip_grads=self.clip_grads_fn)
 
         # Compute losses for logging
-        loss_dict_scaled = {
-            f"{k}_scaled": v * weight_dict[k]
-            for k, v in loss_dict.items()
-            if k in weight_dict
-        }
         loss_dict["sum_unscaled"] = sum(loss_dict.values())
-        loss_dict["sum_scaled"] = sum(loss_dict_scaled.values())
-        loss_dict.update(loss_dict_scaled)
-
         loss_dict["loss"] = losses
 
         return loss_dict
@@ -266,14 +258,7 @@ class DeformableDETRTrial(PyTorchTrial):
         weight_dict = self.criterion.weight_dict
 
         # Compute losses for logging
-        loss_dict_scaled = {
-            f"{k}_scaled": v * weight_dict[k]
-            for k, v in loss_dict.items()
-            if k in weight_dict
-        }
         loss_dict["sum_unscaled"] = sum(loss_dict.values())
-        loss_dict["sum_scaled"] = sum(loss_dict_scaled.values())
-        loss_dict.update(loss_dict_scaled)
 
         orig_target_sizes = torch.stack([t["orig_size"] for t in targets], dim=0)
         res = self.postprocessors["bbox"](outputs, orig_target_sizes)

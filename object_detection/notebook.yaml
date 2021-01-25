@@ -1,0 +1,2 @@
+environment:
+    image: liamdetermined/development:detr

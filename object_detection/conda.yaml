@@ -1,0 +1,16 @@
+channels:
+- defaults
+- conda-forge
+- pytorch
+dependencies:
+- python=3.6
+- pip
+- pip:
+  - mlflow
+  - attrdict
+  - scipy
+  - cython
+  - torch==1.4.0
+  - torchvision==0.5.0
+  - cloudpickle==0.5.3
+name: mlflow-env

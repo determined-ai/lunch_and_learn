@@ -1,7 +1,15 @@
 FROM determinedai/environments:cuda-10.0-pytorch-1.4-tf-1.15-gpu-067db2b
 RUN apt-get update
-RUN apt-get install unzip
+RUN apt-get -y install unzip curl && rm -rf /var/lib/apt/lists/*
 
+# Install docker client    
+ENV DOCKER_CHANNEL stable
+ENV DOCKER_VERSION 20.10.3
+ENV DOCKER_API_VERSION 1.41
+RUN curl -fsSL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" \
+  | tar -xzC /usr/local/bin --strip=1 docker/docker
+
+# Download data and install dependencies
 RUN wget http://images.cocodataset.org/annotations/annotations_trainval2017.zip
 RUN unzip -o annotations_trainval2017.zip 
 RUN mv annotations/instances_train2017.json /tmp

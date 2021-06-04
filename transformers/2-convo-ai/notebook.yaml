@@ -1,0 +1,5 @@
+environment:
+    image: determinedai/model-hub-transformers:96b161ff
+bind_mounts:
+  - host_path: /tmp
+    container_path: /root/.cache

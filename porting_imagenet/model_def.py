@@ -24,13 +24,13 @@ class ImagenetTrial(PyTorchTrial):
         pass 
 
     def build_training_data_loader(self):
-        # TODO: return a Determined Dataloader
+        # TODO: Update download_directory and return a Determined Dataloader
 
         transform = transforms.Compose(
             [transforms.ToTensor(), transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))]
         )
         trainset = datasets.CIFAR10(
-            root=self.download_directory, train=True, download=self.context.get_hparam("download"), transform=transform
+            root=self.download_directory, train=True, download=True, transform=transform
         )
         
 
